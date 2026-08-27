@@ -43,10 +43,6 @@ const steps = [
   },
 ];
 
-export default function _unused() {
-  return null;
-}
-
 function HowItWorks() {
   return (
     <>

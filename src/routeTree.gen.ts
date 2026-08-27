@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as JournalRouteImport } from './routes/journal'
+import { Route as OurStoryRouteImport } from './routes/our-story'
+import { Route as MealMealIdRouteImport } from './routes/meal.$mealId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalRoute = JournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OurStoryRoute = OurStoryRouteImport.update({
+  id: '/our-story',
+  path: '/our-story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MealMealIdRoute = MealMealIdRouteImport.update({
+  id: '/meal/$mealId',
+  path: '/meal/$mealId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/journal': typeof JournalRoute
+  '/our-story': typeof OurStoryRoute
+  '/meal/$mealId': typeof MealMealIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/journal': typeof JournalRoute
+  '/our-story': typeof OurStoryRoute
+  '/meal/$mealId': typeof MealMealIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/journal': typeof JournalRoute
+  '/our-story': typeof OurStoryRoute
+  '/meal/$mealId': typeof MealMealIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/discover'
+    | '/how-it-works'
+    | '/journal'
+    | '/our-story'
+    | '/meal/$mealId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/discover'
+    | '/how-it-works'
+    | '/journal'
+    | '/our-story'
+    | '/meal/$mealId'
+  id:
+    | '__root__'
+    | '/'
+    | '/discover'
+    | '/how-it-works'
+    | '/journal'
+    | '/our-story'
+    | '/meal/$mealId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DiscoverRoute: typeof DiscoverRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  JournalRoute: typeof JournalRoute
+  OurStoryRoute: typeof OurStoryRoute
+  MealMealIdRoute: typeof MealMealIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal': {
+      id: '/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof JournalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/our-story': {
+      id: '/our-story'
+      path: '/our-story'
+      fullPath: '/our-story'
+      preLoaderRoute: typeof OurStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meal/$mealId': {
+      id: '/meal/$mealId'
+      path: '/meal/$mealId'
+      fullPath: '/meal/$mealId'
+      preLoaderRoute: typeof MealMealIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DiscoverRoute: DiscoverRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  JournalRoute: JournalRoute,
+  OurStoryRoute: OurStoryRoute,
+  MealMealIdRoute: MealMealIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
