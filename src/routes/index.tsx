@@ -133,8 +133,7 @@ function Home() {
             {moods.map((mood, i) => (
               <Reveal key={mood.id} delay={i * 80}>
                 <Link
-                  to="/discover"
-                  search={{ mood: mood.id }}
+                  to={`/mood/${mood.id}`}
                   className="card-lift flex h-full flex-col rounded-2xl border border-border/70 bg-card p-6 shadow-soft"
                 >
                   <span

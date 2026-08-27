@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Clock, Heart, MapPin, Star } from "lucide-react";
+import { ArrowLeft, Clock, DollarSign, Heart, MapPin, Star, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { MealCard } from "@/components/meal-card";
@@ -50,6 +50,10 @@ function MealMissing() {
   );
 }
 
+function priceLabel(price: "$" | "$$" | "$$$") {
+  return { $: "Budget", $$: "Moderate", $$$: "Special occasion" }[price];
+}
+
 function MealDetail() {
   const { meal } = Route.useLoaderData();
   const { user } = useAuth();
@@ -77,21 +81,25 @@ function MealDetail() {
               <p className="mt-4 text-muted-foreground">
                 {meal.place} · {meal.neighborhood}
               </p>
-              <div className="mt-7 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5">
-                  <Star className="h-4 w-4 fill-primary text-primary" />
-                  {meal.rating}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="h-4 w-4" />
-                  {meal.minutes} min
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4" />
-                  {meal.distance}
-                </span>
-                <span>{meal.price}</span>
-              </div>
+          <div className="mt-7 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <Star className="h-4 w-4 fill-primary text-primary" />
+              {meal.rating}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Clock className="h-4 w-4" />
+              {meal.minutes} min
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin className="h-4 w-4" />
+              {meal.distance}
+            </span>
+            <span className="flex items-center gap-1.5 rounded-full bg-secondary px-3.5 py-1.5 text-sm font-medium text-foreground">
+              <DollarSign className="h-4 w-4 text-primary" />
+              {meal.price}
+              <span className="text-xs text-muted-foreground">· {priceLabel(meal.price)}</span>
+            </span>
+          </div>
               <div className="mt-8 flex flex-wrap gap-3">
                 {user ? (
                   <Button
@@ -118,6 +126,8 @@ function MealDetail() {
                   </Link>
                 </Button>
               </div>
+
+              <RateMatch match={meal.match} />
             </div>
 
             <div className="animate-fade-up overflow-hidden rounded-3xl shadow-lift [animation-delay:120ms]">
@@ -196,5 +206,31 @@ function MealDetail() {
         </section>
       )}
     </>
+  );
+}
+
+function RateMatch({ match }: { match: number }) {
+  const [score, setScore] = useState(match);
+
+  return (
+    <div className="mt-6 rounded-2xl border border-border/70 bg-card p-5 shadow-soft">
+      <p className="eyebrow">Rate this match</p>
+      <div className="mt-4 flex items-center gap-4">
+        <button
+          onClick={() => setScore((s) => Math.min(100, s + 5))}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:border-primary hover:text-primary"
+        >
+          <ThumbsUp className="h-4 w-4" />
+        </button>
+        <span className="font-display text-3xl leading-none text-primary">{score}%</span>
+        <button
+          onClick={() => setScore((s) => Math.max(0, s - 5))}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:border-primary hover:text-primary"
+        >
+          <ThumbsDown className="h-4 w-4" />
+        </button>
+        <span className="text-xs text-muted-foreground">Tap to adjust</span>
+      </div>
+    </div>
   );
 }

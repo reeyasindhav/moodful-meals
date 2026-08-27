@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, UtensilsCrossed } from "lucide-react";
 import { MealCard } from "@/components/meal-card";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
@@ -123,8 +123,14 @@ function Discover() {
             <div className="mt-10 rounded-2xl border border-dashed border-border bg-card p-12 text-center">
               <h2 className="text-2xl">Nothing fits those filters</h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Loosen a filter and we'll find something that matches the mood.
+                Loosen a filter or try a different mood.
               </p>
+              <div className="mt-4">
+                <p className="text-xs text-muted-foreground">
+                  Based on the time of day, you might enjoy{" "}
+                  <span className="font-medium text-primary">{timeSuggestion()}</span>
+                </p>
+              </div>
               <Button
                 variant="outline"
                 className="mt-6 rounded-full"
@@ -143,6 +149,21 @@ function Discover() {
       </section>
     </>
   );
+}
+
+function timeSuggestion(): string {
+  const hour = new Date().getHours();
+  const id =
+    hour >= 5 && hour < 11
+      ? "energized"
+      : hour >= 11 && hour < 14
+        ? "focused"
+        : hour >= 14 && hour < 17
+          ? "adventurous"
+          : hour >= 17 && hour < 20
+            ? "celebratory"
+            : "cozy";
+  return moodById(id)?.label ?? "Cozy";
 }
 
 function FilterRow<T extends string>({
@@ -171,6 +192,9 @@ function FilterRow<T extends string>({
                 : "bg-secondary text-secondary-foreground hover:bg-secondary/70",
             )}
           >
+            {(o === "All" || o === "Everything") && (
+              <UtensilsCrossed className="mr-1.5 inline h-3.5 w-3.5" />
+            )}
             {o}
           </button>
         ))}

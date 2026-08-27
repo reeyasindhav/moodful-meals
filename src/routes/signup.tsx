@@ -39,7 +39,7 @@ function Signup() {
     setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]));
 
   return (
-    <div className="grid min-h-[calc(100vh-6.5rem)] lg:grid-cols-2">
+    <div className="grid min-h-screen lg:grid-cols-2">
       <div className="relative hidden overflow-hidden bg-mint/60 lg:block">
         <img
           src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80"
@@ -50,6 +50,11 @@ function Signup() {
 
       <div className="flex items-center justify-center px-5 py-16 lg:px-14">
         <div className="animate-fade-up w-full max-w-md">
+          <Link to="/" className="mb-8 flex items-center gap-2.5">
+            <span className="h-3 w-3 rounded-full bg-primary" />
+            <span className="font-display text-3xl leading-none tracking-tight">moodmeal</span>
+          </Link>
+
           <p className="eyebrow">Get started</p>
           <h1 className="display-section mt-4">Build your mood profile</h1>
           <p className="mt-3 text-sm text-muted-foreground">

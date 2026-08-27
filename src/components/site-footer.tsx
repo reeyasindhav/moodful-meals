@@ -17,14 +17,6 @@ export function SiteFooter() {
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             <FooterCol
-              title="Discover"
-              links={[
-                { to: "/discover", label: "Mood search" },
-                { to: "/journal", label: "Journal" },
-                { to: "/how-it-works", label: "How it works" },
-              ]}
-            />
-            <FooterCol
               title="Account"
               links={[
                 { to: "/dashboard", label: "Dashboard" },
@@ -36,16 +28,21 @@ export function SiteFooter() {
               title="Company"
               links={[
                 { to: "/our-story", label: "Our story" },
-                { to: "/signup", label: "Create account" },
-                { to: "/login", label: "Log in" },
+                { to: "/contact", label: "Contact" },
+              ]}
+            />
+            <FooterCol
+              title="Legal"
+              links={[
+                { to: "/privacy", label: "Privacy" },
+                { to: "/terms", label: "Terms" },
               ]}
             />
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-ink-foreground/12 pt-6 text-xs text-ink-foreground/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 border-t border-ink-foreground/12 pt-6 text-xs text-ink-foreground/50">
           <p>© 2026 Moodmeal. All moods welcome.</p>
-          <p>Made for how you feel, not just what you crave.</p>
         </div>
       </div>
     </footer>

@@ -1,12 +1,22 @@
 import { Link } from "@tanstack/react-router";
 import { Clock, Heart, MapPin, Star } from "lucide-react";
-import { useState } from "react";
 import { toast } from "sonner";
-import type { Meal } from "@/lib/moodmeal-data";
+import type { Meal, MoodId } from "@/lib/moodmeal-data";
+import { savedStore, useIsSaved } from "@/lib/saved-store";
 import { cn } from "@/lib/utils";
 
-export function MealCard({ meal, saved = false }: { meal: Meal; saved?: boolean }) {
-  const [isSaved, setIsSaved] = useState(saved);
+export function MealCard({ meal, mood }: { meal: Meal; mood?: MoodId }) {
+  const saved = useIsSaved(meal.id);
+
+  const toggle = () => {
+    if (saved) {
+      savedStore.remove(meal.id);
+      toast("Removed from saved", { description: meal.name });
+    } else {
+      savedStore.add(meal, mood ?? meal.moods[0] ?? ("cozy" as MoodId));
+      toast("Saved for later", { description: meal.name });
+    }
+  };
 
   return (
     <article className="card-lift group overflow-hidden rounded-2xl border border-border/70 bg-card shadow-soft">
@@ -25,19 +35,14 @@ export function MealCard({ meal, saved = false }: { meal: Meal; saved?: boolean 
           </span>
         )}
         <button
-          aria-label={isSaved ? "Remove from saved" : "Save meal"}
-          onClick={() => {
-            setIsSaved((v) => !v);
-            toast(isSaved ? "Removed from saved" : "Saved for later", {
-              description: meal.name,
-            });
-          }}
+          aria-label={saved ? "Remove from saved" : "Save meal"}
+          onClick={toggle}
           className="absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-card/95 shadow-soft transition-transform hover:scale-110 active:scale-95"
         >
           <Heart
             className={cn(
               "h-4 w-4 transition-colors",
-              isSaved ? "fill-primary text-primary" : "text-muted-foreground",
+              saved ? "fill-primary text-primary" : "text-muted-foreground",
             )}
           />
         </button>

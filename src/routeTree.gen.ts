@@ -10,20 +10,29 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as OurStoryRouteImport } from './routes/our-story'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as MealMealIdRouteImport } from './routes/meal.$mealId'
+import { Route as MoodMoodIdRouteImport } from './routes/mood.$moodId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -56,6 +65,11 @@ const OurStoryRoute = OurStoryRouteImport.update({
   path: '/our-story',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -71,106 +85,144 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MealMealIdRoute = MealMealIdRouteImport.update({
   id: '/meal/$mealId',
   path: '/meal/$mealId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MoodMoodIdRoute = MoodMoodIdRouteImport.update({
+  id: '/mood/$moodId',
+  path: '/mood/$moodId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/discover': typeof DiscoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/journal': typeof JournalRoute
   '/login': typeof LoginRoute
   '/our-story': typeof OurStoryRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
   '/meal/$mealId': typeof MealMealIdRoute
+  '/mood/$moodId': typeof MoodMoodIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/discover': typeof DiscoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/journal': typeof JournalRoute
   '/login': typeof LoginRoute
   '/our-story': typeof OurStoryRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
   '/meal/$mealId': typeof MealMealIdRoute
+  '/mood/$moodId': typeof MoodMoodIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/discover': typeof DiscoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/journal': typeof JournalRoute
   '/login': typeof LoginRoute
   '/our-story': typeof OurStoryRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
   '/meal/$mealId': typeof MealMealIdRoute
+  '/mood/$moodId': typeof MoodMoodIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contact'
     | '/dashboard'
     | '/discover'
     | '/how-it-works'
     | '/journal'
     | '/login'
     | '/our-story'
+    | '/privacy'
     | '/profile'
     | '/saved'
     | '/signup'
+    | '/terms'
     | '/meal/$mealId'
+    | '/mood/$moodId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/contact'
     | '/dashboard'
     | '/discover'
     | '/how-it-works'
     | '/journal'
     | '/login'
     | '/our-story'
+    | '/privacy'
     | '/profile'
     | '/saved'
     | '/signup'
+    | '/terms'
     | '/meal/$mealId'
+    | '/mood/$moodId'
   id:
     | '__root__'
     | '/'
+    | '/contact'
     | '/dashboard'
     | '/discover'
     | '/how-it-works'
     | '/journal'
     | '/login'
     | '/our-story'
+    | '/privacy'
     | '/profile'
     | '/saved'
     | '/signup'
+    | '/terms'
     | '/meal/$mealId'
+    | '/mood/$moodId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   DiscoverRoute: typeof DiscoverRoute
   HowItWorksRoute: typeof HowItWorksRoute
   JournalRoute: typeof JournalRoute
   LoginRoute: typeof LoginRoute
   OurStoryRoute: typeof OurStoryRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProfileRoute: typeof ProfileRoute
   SavedRoute: typeof SavedRoute
   SignupRoute: typeof SignupRoute
+  TermsRoute: typeof TermsRoute
   MealMealIdRoute: typeof MealMealIdRoute
+  MoodMoodIdRoute: typeof MoodMoodIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -180,6 +232,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -224,6 +283,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OurStoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -245,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/meal/$mealId': {
       id: '/meal/$mealId'
       path: '/meal/$mealId'
@@ -252,21 +325,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MealMealIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mood/$moodId': {
+      id: '/mood/$moodId'
+      path: '/mood/$moodId'
+      fullPath: '/mood/$moodId'
+      preLoaderRoute: typeof MoodMoodIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   DiscoverRoute: DiscoverRoute,
   HowItWorksRoute: HowItWorksRoute,
   JournalRoute: JournalRoute,
   LoginRoute: LoginRoute,
   OurStoryRoute: OurStoryRoute,
+  PrivacyRoute: PrivacyRoute,
   ProfileRoute: ProfileRoute,
   SavedRoute: SavedRoute,
   SignupRoute: SignupRoute,
+  TermsRoute: TermsRoute,
   MealMealIdRoute: MealMealIdRoute,
+  MoodMoodIdRoute: MoodMoodIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

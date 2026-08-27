@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -15,6 +16,7 @@ import { AuthProvider } from "@/lib/auth";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Toaster } from "@/components/ui/sonner";
+import { savedStore } from "@/lib/saved-store";
 
 function NotFoundComponent() {
   return (
@@ -97,6 +99,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
+    scripts: [
+      {
+        type: "inline",
+        children: `
+          (function() {
+            try {
+              var t = localStorage.getItem('moodmeal.theme');
+              var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+              if (t === 'dark' || (!t && prefersDark)) {
+                document.documentElement.classList.add('dark');
+              }
+            } catch (e) {}
+          })();
+        `,
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -120,17 +138,24 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { pathname } = useLocation();
+  const hideHeader = pathname === "/login" || pathname === "/signup";
+  const hideFooter = pathname === "/login" || pathname === "/signup";
+
+  useEffect(() => {
+    savedStore.hydrate();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <div className="flex min-h-screen flex-col">
-          <SiteHeader />
+          {!hideHeader && <SiteHeader />}
           <main className="flex-1">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
           </main>
-          <SiteFooter />
+          {!hideFooter && <SiteFooter />}
         </div>
         <Toaster />
       </AuthProvider>

@@ -28,9 +28,14 @@ function Login() {
   const [password, setPassword] = useState("moodmeal");
 
   return (
-    <div className="grid min-h-[calc(100vh-6.5rem)] lg:grid-cols-2">
+    <div className="grid min-h-screen lg:grid-cols-2">
       <div className="flex items-center justify-center px-5 py-16 lg:px-14">
         <div className="animate-fade-up w-full max-w-sm">
+          <Link to="/" className="mb-8 flex items-center gap-2.5">
+            <span className="h-3 w-3 rounded-full bg-primary" />
+            <span className="font-display text-3xl leading-none tracking-tight">moodmeal</span>
+          </Link>
+
           <p className="eyebrow">Welcome back</p>
           <h1 className="display-section mt-4">Good to see you</h1>
           <p className="mt-3 text-sm text-muted-foreground">
